@@ -26,6 +26,7 @@ pub fn App(cx: Scope) -> impl IntoView {
               <Route path="/logout" view=|cx| view! { cx,  <Logout/>}/>
 
               <Route path="/customer" view=|cx| view! { cx,  <PageCustomer/>}/>
+              <Route path="/receipt" view=|cx| view! { cx,  <PageReceipt/>}/>
           </Routes>
         //   <div>"Ngoai router copy right"</div>
       </Router>

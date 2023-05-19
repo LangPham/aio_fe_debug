@@ -70,7 +70,15 @@ module.exports = {
 
     },
     extend: {
-     
+      keyframes: {
+        loadbar: {
+          '0%, 100%': { transform: 'left-1/4' },
+          '50%': { transform: 'left-3/4' },
+        }
+      },
+      animation: {
+        loadbar: 'loadbar 1s ease-in-out infinite',
+      }
     },
   },
   plugins: [],

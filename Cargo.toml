@@ -16,5 +16,5 @@ serde = "1.0.163"
 
 log = "0.4.6"
 wasm-logger = "0.2.0"
-leptos_icons = {version="0.0.10", features = ["FaBarsSolid", "BsPeopleFill", "BsHouseFill", "BsArrowBarLeft", "BsArrowRightCircleFill"] }
+leptos_icons = {version="0.0.10", features = ["FaBarsSolid", "BsPeopleFill", "BsHouseFill", "BsArrowBarLeft", "BsArrowRightCircleFill", "FaReceiptSolid"] }
 

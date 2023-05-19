@@ -1,20 +1,15 @@
 use crate::components::*;
-use crate::{app::GlobalState, layout::*};
+use crate::layout::*;
 use gloo::net::http::Request;
-use leptos::{
-    ev::SubmitEvent,
-    html::{Input, Select},
-    *,
-};
-use leptos_router::*;
-use std::rc::Rc;
+use leptos::*;
+
 
 #[component]
 pub fn PageCustomer(cx: Scope) -> impl IntoView {
-    let (loading, set_loading) = create_signal(cx, false);
+    
     let async_data = create_resource(
         cx,
-        move || loading.get(),
+        || (),
         |_| async move {
             Request::get("/api/customer")
                 .send()
@@ -28,7 +23,7 @@ pub fn PageCustomer(cx: Scope) -> impl IntoView {
 
     let (header, _) = create_signal(
         cx,
-        HeaderModel::new(cx, "User", "List all user", "New", "/user/new"),
+        HeaderModel::new(cx, "Customer", "List all customer", "Home", "/"),
     );
 
     view! { cx,

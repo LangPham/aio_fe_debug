@@ -26,7 +26,6 @@ pub fn Sidebar(cx: Scope) -> impl IntoView {
                     <div class="h-12 relative transition-all"
                         class=("w-64", move || menu_open.get() == true)
                         class=("w-14", move || menu_open.get() == false)
-
                     >
                         <div class="absolute right-0 h-14 w-14 flex justify-center items-center text-primary-100 py-2 px-2"
                             class=("rotate-180", move || menu_open.get() == false)                            

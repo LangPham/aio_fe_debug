@@ -68,6 +68,8 @@ pub fn TTable(
     data: Vec<serde_json::Value>,
     actions: Vec<(Rc<dyn Fn(serde_json::Value)>, String)>,
 ) -> impl IntoView {
+    let (row_current, set_row_current) = create_signal(cx, 0);
+
     view! { cx,
         <table class="w-full divide-y divide-secondary-50 table-auto">
                 <thead>
@@ -97,7 +99,7 @@ pub fn TTable(
                         data.into_iter().map(|row| {
                             let action_vec = actions.to_vec();
                             view! { cx,
-                                <tr>
+                                <tr class="hover:bg-secondary-80 transition-all">
                                     { columns.to_vec().into_iter()
                                         .map(|column| view! { cx,
                                             <td class="px-3 py-2 text-sm text-gray-500">{column.value(row.clone())}</td>

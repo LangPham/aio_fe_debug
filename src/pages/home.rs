@@ -4,7 +4,7 @@ use leptos_router::Redirect;
 // use leptos_meta::*;
 use crate::{
     app::GlobalState,
-    components::{HeaderModel, HeaderPage},
+    components::{HeaderModel, HeaderPage, Loading},
     layout::*,
     models::TUser,
 };
@@ -41,32 +41,41 @@ pub fn Home(cx: Scope) -> impl IntoView {
         },
     );
 
-    {move || async_data.read(cx).map(
-        |data| {
-            match data.len() {
-                1 => {
-                    let user_data = data[0].clone();
-                    set_user.set(user_data);
-                    log::debug!("DATAHOME:::{:#?}", user.get());
-                    view! {cx,
-                        <Layout>
-                            <HeaderPage header=header />
-                            <Suspense
-                                fallback=move || view! { cx, <p>"Loading..."</p> }
-                            >
-                            "Hi"
-                            </Suspense>
-                        </Layout>
+    view! { cx,
+        <Layout>
+            <HeaderPage header=header />
+            <Transition
+                fallback=move || view! { cx, <Loading/> }                
+            >
+
+            {move || async_data.read(cx).map(
+                |data| {
+                    match data.len() {
+                        1 => {
+                            let user_data = data[0].clone();
+                            set_user.set(user_data);
+                            log::debug!("DATAHOME:::{:#?}", user.get());
+                            view! {cx,
+                                <div>
+                                   
+                                    "Hi"
+                                </div>
+                               
+                            }
+                        },
+                        _ => {
+                            view! {cx,
+                               <div>
+                                    <Redirect path="/login"/>
+                               </div>
+                            }    
+                        }          
                     }
-                },
-                _ => {
-                    view! {cx,
-                        <Layout>
-                            <Redirect path="/login"/>
-                        </Layout>
-                    }    
-                }          
-            }
-        }
-    )}    
+                }
+            )}    
+            </Transition>
+        </Layout>
+    }    
+
+    
 }

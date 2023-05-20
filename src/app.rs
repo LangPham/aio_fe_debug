@@ -6,6 +6,7 @@ use leptos_router::*;
 pub struct GlobalState {
     pub theme_menu_open: bool,
     pub t_error: String,
+    pub t_info: String,
     pub user: TUser,
 }
 

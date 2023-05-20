@@ -46,8 +46,8 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
                         {children(cx)}
                     </div>
                 </div>
-                 <TError />
-    
+                <TError />
+                <TInfo />
               </div>
         }.into_view(cx)
     }     

@@ -72,8 +72,8 @@ module.exports = {
     extend: {
       keyframes: {
         loadbar: {
-          '0%, 100%': { transform: 'left-1/4' },
-          '50%': { transform: 'left-3/4' },
+          '0%, 100%': { 'inset-inline-start': '0%' },
+          '50%': { 'inset-inline-start': 'calc(100% - 4rem)' },
         }
       },
       animation: {

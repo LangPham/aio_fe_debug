@@ -16,8 +16,15 @@ pub use self::t_button::*;
 pub mod t_error;
 pub use self::t_error::*;
 
+pub mod t_info;
+pub use self::t_info::*;
+
 pub mod t_select;
 pub use self::t_select::*;
+
+
+pub mod t_loading;
+pub use self::t_loading::*;
 
 pub mod headerpage;
 pub use self::headerpage::*;

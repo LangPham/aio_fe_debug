@@ -14,11 +14,7 @@ pub fn TError(cx: Scope) -> impl IntoView {
         },
     );
 
-    // view! { cx,
 
-    // }
-    // set_t_err.set("CAI GI DAY".to_string());
-    // log::warn!("ERRRRRR:::::{:#?}", t_err.get());
     view! { cx,
       <Show
         when=move || t_err.get() != ""
@@ -32,7 +28,7 @@ pub fn TError(cx: Scope) -> impl IntoView {
           >
           <div class="block bg-error-40 text-error-100 w-auto h-auto rounded divide-y divide-double w-min-64">
               <div class="p-4 relative"> "ERROR!!!" </div>
-              <div class="p-4"> {t_err.get()} </div>
+              <div class="p-4"> <pre>{t_err.get()}</pre></div>
           </div>
       </div>
       </Show>

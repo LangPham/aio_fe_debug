@@ -30,7 +30,7 @@ pub fn PageCustomer(cx: Scope) -> impl IntoView {
         <Layout>
             <HeaderPage header=header />
             <Transition
-                fallback=move || view! { cx, <p>"Loading..."</p> }
+                fallback=move || view! { cx, <Loading/> }
             >
                 {move || async_data.read(cx).map(
                     |data| {

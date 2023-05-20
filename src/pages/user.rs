@@ -35,7 +35,7 @@ pub fn ListUser(cx: Scope) -> impl IntoView {
         <Layout>
             <HeaderPage header=header />
             <Transition
-                fallback=move || view! { cx, <p>"Loading..."</p> }
+                fallback=move || view! { cx, <Loading/> }
             >
                 {move || async_data.read(cx).map(
                     |data| {
@@ -179,7 +179,7 @@ pub fn NewUser(cx: Scope) -> impl IntoView {
         <Layout>
             <HeaderPage header=header />
             <Transition
-                fallback=move || view! { cx, <p>"Loading..."</p> }
+                fallback=move || view! { cx, <Loading/> }
             >
                 <form  on:submit=on_submit>
                     <TInput id="username".to_string() label="Username".to_string() node_ref=input_username required=true/>
@@ -273,7 +273,7 @@ pub fn EditUser(cx: Scope) -> impl IntoView {
         <Layout>
             <HeaderPage header=header />
             <Transition
-                fallback=move || view! { cx, <p>"Loading..."</p> }
+                fallback=move || view! { cx, <Loading/> }
             >
                 {move || async_data.read(cx).map(
                     |data| {

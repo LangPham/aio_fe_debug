@@ -76,14 +76,14 @@ pub fn TTable(
                     <tr>
                     { columns.to_vec().into_iter()
                         .map(|item| view! { cx,
-                            <th scope="col" class="p-4 text-left text-sm font-semibold text-gray-900">{item.header}</th>
+                            <th scope="col" class="p-4 text-left  font-semibold text-gray-900">{item.header}</th>
                         })
                         .collect::<Vec<_>>()
                     }
                     {
                         if actions.len() >0 {
                             view!{cx,
-                                <th scope="col" class="p-4 text-right text-sm font-semibold text-gray-900">
+                                <th scope="col" class="p-4 text-right font-semibold text-gray-900">
                                     <span class="sr-only1">{"Action"}</span>
                                 </th>
                             }.into_view(cx)
@@ -106,19 +106,19 @@ pub fn TTable(
                                 >
                                     { columns.to_vec().into_iter()
                                         .map(|column| view! { cx,
-                                            <td class="px-3 py-2 text-sm text-gray-500">{column.value(row.clone())}</td>
+                                            <td class="px-3 py-2 text-gray-500">{column.value(row.clone())}</td>
                                         })
                                         .collect::<Vec<_>>()
                                     }
                                     {if actions.len() >0 {
                                         view!{cx,
-                                            <td class="px-3 py-2 text-sm text-gray-500 text-right">
+                                            <td class="px-3 py-2 text-gray-500 text-right">
                                                 { action_vec.into_iter()
                                                     .map(|act| {
                                                         let data = row.clone();
                                                         view! { cx,
                                                         <span
-                                                            class="text-primary-40 hover:text-primary-70 cursor-pointer transition-all text-base ml-2"
+                                                            class="text-primary-40 hover:text-primary-70 cursor-pointer transition-all ml-2"
                                                             on:click=move |_| {
                                                                 (act.0)(data.clone());
                                                             }

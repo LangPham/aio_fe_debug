@@ -9,7 +9,7 @@ pub fn TButton(cx: Scope,
 ) -> impl IntoView {
     view! {cx,
         <button
-            class="text-primary-100 bg-primary-40 hover:bg-primary-50 focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            class="text-primary-100 bg-primary-40 hover:bg-primary-50 focus:ring-4 font-medium rounded-lg w-full sm:w-auto px-5 py-2.5 text-center"
             type={ttype}
         >
             {label}

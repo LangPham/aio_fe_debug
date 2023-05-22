@@ -62,7 +62,14 @@ pub fn Sidebar(cx: Scope) -> impl IntoView {
                             <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all group flex items-center rounded-md px-2 py-2 text-base font-medium gap-4 aria-[current=page]:bg-primary-50"
                                 exact=true
                                 href="/receipt" >
-                                <Icon class="mx-2" icon=FaIcon::FaReceiptSolid/>
+                                <Icon class="mx-2" icon=FaIcon::FaFileImportSolid/>
+                                "Receipt"
+                            </A>
+
+                            <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all group flex items-center rounded-md px-2 py-2 text-base font-medium gap-4 aria-[current=page]:bg-primary-50"
+                                exact=true
+                                href="/payment" >
+                                <Icon class="mx-2" icon=FaIcon::FaFileExportSolid/>
                                 "Receipt"
                             </A>
 

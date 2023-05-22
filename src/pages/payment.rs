@@ -17,7 +17,7 @@ use std::str::FromStr;
 
 
 #[component]
-pub fn PageReceipt(cx: Scope) -> impl IntoView {
+pub fn PagePayment(cx: Scope) -> impl IntoView {
     let state = use_context::<RwSignal<GlobalState>>(cx).expect("state to have been provided");
         let (_t_info, set_t_info) = create_slice(
             cx,
@@ -37,13 +37,12 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
     let page: u64 = FromStr::from_str(&page).unwrap_or_default();
     set_page_current.clone().set(page);
 
-    log::debug!("PAGE::::{:#?}", page);
     let async_data = create_resource(
         cx,
         move || (page_current.get(), ref_current.get(), branch_current.get()),        
         |(page_current, ref_current, branch_current)| async move {         
             let page_query = format!("?page={}&filter[ref_id]={}&filter[branch_code]={}", page_current, ref_current, branch_current);
-            Request::get(&format!("/api/receipt{}", page_query))
+            Request::get(&format!("/api/payment{}", page_query))
                 .send()
                 .await
                 .unwrap()
@@ -55,7 +54,7 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
 
     let (header, _) = create_signal(
         cx,
-        HeaderModel::new(cx, "Receipt", "List all receipt", "Home", "/"),
+        HeaderModel::new(cx, "Payment", "List all payment", "Home", "/"),
     );
 
     view! { cx,
@@ -71,8 +70,8 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
                         
                         let def_column = [
                             DefCol::new("ID", "id", "number"),
-                            DefCol::new("Branch code", "data_iportal.data.school.branch_code", "string"),
-                            DefCol::new("RefId", "data_iportal.data.so_phieu_thu", "string"),
+                            DefCol::new("Branch code", "log_bravo.data.BranchCode0", "string"),
+                            DefCol::new("RefId", "data_iportal.data.so_chung_tu", "string"),
                             DefCol::new("Sync Ok", "is_on_bravo", "bool"),
                             DefCol::new("Updated At", "updated_at", "string"),
                             // DefCol::new("Username", "username", "string"),
@@ -80,7 +79,7 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
 
 
                         let read = Rc::new(move |receipt: serde_json::Value| {
-                            // let id = user["id"].as_i64().unwrap();
+                            
                             log::debug!("{:#?}", receipt);
                             let info = serde_json::to_string_pretty(&receipt).unwrap();
                             set_t_info.set(info);

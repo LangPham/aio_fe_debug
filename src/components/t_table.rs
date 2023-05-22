@@ -95,11 +95,15 @@ pub fn TTable(
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-secondary-80 bg-white">
-                    {
-                        data.into_iter().map(|row| {
+                    {   
+                        data.iter().enumerate().map(|(index, row)| {
                             let action_vec = actions.to_vec();
                             view! { cx,
-                                <tr class="hover:bg-secondary-80 transition-all">
+                                <tr class="hover:bg-secondary-80 transition-all"
+                                    class=("bg-secondary-90", move || index+1 == row_current.get())                                    
+                                    on:click= move |_| {set_row_current.set(index+1)}
+                                    // data-index={index+1}                                
+                                >
                                     { columns.to_vec().into_iter()
                                         .map(|column| view! { cx,
                                             <td class="px-3 py-2 text-sm text-gray-500">{column.value(row.clone())}</td>

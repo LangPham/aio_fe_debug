@@ -34,9 +34,11 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
         log::debug!("DATAHOME:::{:#?}", user.get());
     match user.get().id {
         // Todo: change to 0
-        -1 => view! {cx,
+        -1 => {
+            
+            view! {cx,
             <Redirect path="/login"/>
-        }.into_view(cx),
+        }.into_view(cx)},
         _ => view! { cx,
             <div class="flex min-h-screen">
                 <Sidebar />

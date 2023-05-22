@@ -35,16 +35,12 @@ pub fn PageCustomer(cx: Scope) -> impl IntoView {
                 {move || async_data.read(cx).map(
                     |data| {
                         let list_customer = data["entries"].as_array().unwrap();
-
-
                         let def_column = [
-                            DefCol::new("Mã khách hàng", "customer_id", "number"),
-                            DefCol::new("Mã trường", "branch_code", "string"),
-                            DefCol::new("Họ tên", "data_iportal.customer.full_name", "string"),
-                            DefCol::new("Đã lên bravo", "is_on_bravo", "bool"),
-                            DefCol::new("Update", "updated_at", "string"),
-                            // DefCol::new("Username", "username", "string"),
-                            
+                            DefCol::new("Customer code", "customer_id", "number"),
+                            DefCol::new("Branch code", "branch_code", "string"),
+                            DefCol::new("Name", "data_iportal.customer.full_name", "string"),
+                            DefCol::new("Sync Ok", "is_on_bravo", "bool"),
+                            DefCol::new("Updated at", "updated_at", "string"),
                         ].to_vec();
                         view! {cx, <TTable data=list_customer.to_vec() columns=def_column actions=vec![] /> }
                     }

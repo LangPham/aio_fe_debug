@@ -3,6 +3,9 @@ use crate::components::*;
 use crate::layout::*;
 use gloo::net::http::Request;
 use leptos::*;
+use leptos::ev::Event;
+use leptos::ev::SubmitEvent;
+use leptos::html::Input;
 use leptos_router::*;
 
 use std::rc::Rc;
@@ -25,10 +28,9 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
             },
         );
 
-
-
-
     let (page_current, set_page_current) = create_signal(cx, 1);
+    let (branch_current, set_branch_current) = create_signal(cx, String::default());
+    let (ref_current, set_ref_current) = create_signal(cx, String::default());
     let search = use_query_map(cx);
     let page = search.with(|search| search.get("page").cloned().unwrap_or_default());
     
@@ -38,9 +40,9 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
     log::debug!("PAGE::::{:#?}", page);
     let async_data = create_resource(
         cx,
-        move || page_current.get(),        
-        |page_current| async move {         
-            let page_query = format!("?page={}", page_current);
+        move || (page_current.get(), ref_current.get(), branch_current.get()),        
+        |(page_current, ref_current, branch_current)| async move {         
+            let page_query = format!("?page={}&filter[ref_id]={}&filter[branch_code]={}", page_current, ref_current, branch_current);
             Request::get(&format!("/api/receipt{}", page_query))
                 .send()
                 .await
@@ -68,11 +70,11 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
                         let page = &data["page"];
                         
                         let def_column = [
-                            DefCol::new("STT", "id", "number"),
-                            DefCol::new("Mã trường", "data_iportal.data.school.branch_code", "string"),
+                            DefCol::new("ID", "id", "number"),
+                            DefCol::new("Branch code", "data_iportal.data.school.branch_code", "string"),
                             DefCol::new("RefId", "data_iportal.data.so_phieu_thu", "string"),
-                            DefCol::new("Đã lên bravo", "is_on_bravo", "bool"),
-                            DefCol::new("Update", "updated_at", "string"),
+                            DefCol::new("Sync Ok", "is_on_bravo", "bool"),
+                            DefCol::new("Updated At", "updated_at", "string"),
                             // DefCol::new("Username", "username", "string"),
                         ].to_vec();
 
@@ -84,12 +86,9 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
                             set_t_info.set(info);
                         });
 
-
-
-
                         view! {cx,
-                            <Pagination page=page.clone() setter=set_page_current loaded=true/> 
-                            
+                            <Filter setter_branch=set_branch_current setter_ref=set_ref_current branch_current=branch_current ref_current=ref_current/>
+                            <Pagination page=page.clone() setter=set_page_current loaded=true/>                            
                             <TTable data=list_data.to_vec() columns=def_column actions=vec![(read, "View".to_owned())] /> 
                         }
                     }
@@ -98,6 +97,55 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
         </Layout>
     }
 }
+
+#[component]
+pub fn Filter(cx: Scope, setter_branch: WriteSignal<String>, setter_ref: WriteSignal<String>, branch_current: ReadSignal<String>, ref_current: ReadSignal<String>) -> impl IntoView {
+    let input_ref_id: NodeRef<Input> = create_node_ref(cx);
+    let input_branch_code: NodeRef<Input> = create_node_ref(cx);
+    let on_submit = move |ev: SubmitEvent| {
+            ev.prevent_default();
+    
+            let ref_id = input_ref_id.get().expect("<input> to exist").value();
+            let branch_code = input_branch_code.get().expect("<input> to exist").value();
+            // let page = ref_id.parse::<u64>().unwrap();
+            // let navigate = use_navigate(cx);
+            // let _ = navigate(format!("/receipt?page={}", ref_id).as_str(), Default::default());
+            
+            setter_branch.set(branch_code.trim().to_string());
+            setter_ref.set(ref_id.trim().to_string());
+            
+    };
+    let on_reset = move |ev: Event| {
+        ev.prevent_default();
+
+        // let ref_id = input_ref_id.get().expect("<input> to exist").value();
+        // let branch_code = input_branch_code.get().expect("<input> to exist").value();
+        // let page = ref_id.parse::<u64>().unwrap();
+        // let navigate = use_navigate(cx);
+        // let _ = navigate(format!("/receipt?page={}", ref_id).as_str(), Default::default());
+        
+        setter_branch.set("".to_string());
+        setter_ref.set("".to_string());
+        
+};
+    view! {cx,
+        <form on:submit=on_submit
+            on:reset=on_reset
+            class="border p-2 my-4 rounded-md"
+        >
+            <div class="flex gap-4">
+                <TInput id="ref_id".to_string()  label="RefId".to_string() node_ref=input_ref_id value=ref_current.get_untracked()/>            
+                <TInput id="branch_code".to_string()  label="Branch code".to_string() node_ref=input_branch_code value=branch_current.get_untracked()/>
+            </div>
+            <div class="flex gap-4 justify-center">
+                <TButton label="Filter".to_string() />
+                <TButton label="Clear".to_string() ttype="reset".to_string()/>
+            </div>
+            
+        </form>
+    }
+}
+
 
 #[component]
 pub fn Pagination(cx: Scope, page: serde_json::Value, setter: WriteSignal<u64>, loaded: bool) -> impl IntoView {

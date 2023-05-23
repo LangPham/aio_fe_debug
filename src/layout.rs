@@ -30,8 +30,7 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
         |state, user| {
             state.user = user;
         },
-    );
-    log::debug!("DATAHOME:::{:#?}", user.get());
+    );    
     match user.get().id {
         // Todo: change to 0
         0 => view! {cx,

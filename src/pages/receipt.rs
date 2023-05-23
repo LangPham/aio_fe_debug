@@ -36,8 +36,7 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
     
     let page: u64 = FromStr::from_str(&page).unwrap_or_default();
     set_page_current.clone().set(page);
-
-    log::debug!("PAGE::::{:#?}", page);
+    
     let async_data = create_resource(
         cx,
         move || (page_current.get(), ref_current.get(), branch_current.get()),        

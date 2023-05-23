@@ -36,11 +36,20 @@ pub fn HeaderPage(cx: Scope, header: ReadSignal<HeaderModel>) -> impl IntoView {
                 <p class="mt-2 text-sm text-gray-700"> {header.get().describe.get()} </p>
             </div>
             <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all rounded-md p-2 text-base"
-                    href={header.get().to.get()}
-                    >
-                    {header.get().label.get()}
-                </A>
+                {
+                    move || if header.get().to.get() != "".to_string() {
+                        view! {cx,
+                            <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all rounded-md p-2 text-base"
+                                href={header.get().to.get()}
+                                >
+                                {header.get().label.get()}
+                            </A>
+                        }.into_view(cx)
+                    } else {
+                        view! {cx, }.into_view(cx)
+                    }
+                }
+                
             </div>
         </div>
     }

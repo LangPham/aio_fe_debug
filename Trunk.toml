@@ -45,3 +45,6 @@ cargo = false
 ## proxy
 # Proxies are optional, and default to `None`.
 # Proxies are only run as part of the `trunk serve` command.
+[[proxy]]
+# rewrite = "/api/"
+backend = "http://localhost:4000/api/"

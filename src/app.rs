@@ -20,12 +20,12 @@ pub fn App(cx: Scope) -> impl IntoView {
         || (),
         |_| async move {
             let res = Request::get("/api/session").send().await.unwrap();
-            match res.status() {
-                400 => vec![],
-                _ => {
+            match res.status() {                
+                200 => {
                     let user = res.json::<TUser>().await.unwrap();
                     vec![user]
-                }
+                },
+                _ => vec![],
             }
         },
     );

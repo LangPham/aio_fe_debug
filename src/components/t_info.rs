@@ -18,7 +18,7 @@ pub fn TInfo(cx: Scope) -> impl IntoView {
     view! { cx,
       <Show
         when=move || t_info.get() != ""
-        fallback=|_cx| view! { cx, "" }
+        fallback=|cx| view! { cx, "" }
       >
       <div
           class="z-50 w-full h-full fixed top-0 bg-secondary-40 bg-opacity-80 flex justify-center items-center "

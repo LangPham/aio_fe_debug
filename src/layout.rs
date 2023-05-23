@@ -39,11 +39,11 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
         _ => view! { cx,
             <div class="flex min-h-screen">
                 <Sidebar />
-                <div class="flex flex-1 flex-col bg-primary-100 min-h-screen z-20">
-           
+                <div class="flex flex-1 flex-col justify-between bg-primary-100 min-h-screen z-20">           
                     <div class="px-4 sm:px-6 lg:px-8">
                         {children(cx)}
                     </div>
+                    <div class="text-center shadow-inner py-2 mt-4">"© 2023 - AIO"</div>
                 </div>
                 <TError />
                 <TInfo />

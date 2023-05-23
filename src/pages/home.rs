@@ -1,23 +1,16 @@
-use gloo::net::http::Request;
 use leptos::*;
-use leptos_router::Redirect;
-// use leptos_meta::*;
-use crate::{
-    
+use crate::{    
     components::{HeaderModel, HeaderPage, Loading},
-    layout::*,
-    
+    layout::*,    
 };
 
 #[component]
 pub fn Home(cx: Scope) -> impl IntoView {
     
-
     let (header, _) = create_signal(
         cx,
-        HeaderModel::new(cx, "Home", "List all user", "", ""),
+        HeaderModel::new(cx, "Home", "Home page", "", ""),
     );   
-   
 
     view! { cx,
         <Layout>
@@ -25,14 +18,18 @@ pub fn Home(cx: Scope) -> impl IntoView {
             <Transition
                 fallback=move || view! { cx, <Loading/> }                
             >
-            <div>
-                                   
-                "Hi"
-            </div>
+            <h1>                                   
+                "Welcome AIO App !!!"
+            </h1>
+            <p>
+                "Use left menu to view functions!"
+            </p>
+
+            <p>
+                "To use old interface click " <a href="/admin" rel="external" class="text-primary-40">"HERE"</a>
+            </p>
            
             </Transition>
         </Layout>
-    }    
-
-    
+    }
 }

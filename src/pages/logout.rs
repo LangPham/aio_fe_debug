@@ -1,29 +1,23 @@
 use gloo::net::http::Request;
 use leptos::*;
-
 use crate::{app::GlobalState, models::TUser};
 
 #[component]
 pub fn Logout(cx: Scope) -> impl IntoView {
     let state = use_context::<RwSignal<GlobalState>>(cx).expect("state to have been provided");
-        let (_user, set_user) = create_slice(
-            cx,
-            state,
-            |state| state.user.clone(),
-            |state, user| {
-                state.user = user;
-            },
-        );
+    let (_user, set_user) = create_slice(
+        cx,
+        state,
+        |state| state.user.clone(),
+        |state, user| {
+            state.user = user;
+        },
+    );
     set_user.set(TUser::default());
-    spawn_local(async move {     
-
-      let resp = Request::get(&format!("/api/logout"))                    
-          .send()
-          .await
-          .unwrap();
-      log::debug!("RESPONE:::{:#?}", resp.status());
-     
-  });
+    spawn_local(async move {
+        let resp = Request::get(&format!("/api/logout")).send().await.unwrap();
+        log::debug!("RESPONE:::{:#?}", resp.status());
+    });
 
     view! { cx,
         <div class="flex items-center justify-center h-screen">
@@ -34,7 +28,7 @@ pub fn Logout(cx: Scope) -> impl IntoView {
                 </svg>
                 <h1 class="text-4xl font-bold font-extrabold text-primary-40 bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">"Thank You !"</h1>
                 <p>"Thank you for your interest! NHG develop team!."</p>
-                
+
               </div>
             </div>
           </div>

@@ -3,10 +3,8 @@ use crate::layout::*;
 use gloo::net::http::Request;
 use leptos::*;
 
-
 #[component]
 pub fn PageCustomer(cx: Scope) -> impl IntoView {
-    
     let async_data = create_resource(
         cx,
         || (),
@@ -49,4 +47,3 @@ pub fn PageCustomer(cx: Scope) -> impl IntoView {
         </Layout>
     }
 }
-

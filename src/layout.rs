@@ -1,4 +1,4 @@
-use crate::{components::*, app::GlobalState};
+use crate::{app::GlobalState, components::*};
 use leptos::*;
 use leptos_router::Redirect;
 
@@ -19,7 +19,6 @@ pub fn LayoutPublic(cx: Scope, children: Children) -> impl IntoView {
     }
 }
 
-
 #[component]
 pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
     let state = use_context::<RwSignal<GlobalState>>(cx).expect("state to have been provided");
@@ -30,16 +29,17 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
         |state, user| {
             state.user = user;
         },
-    );    
+    );
     match user.get().id {
         // Todo: change to 0
         0 => view! {cx,
             <Redirect path="/login"/>
-        }.into_view(cx),
+        }
+        .into_view(cx),
         _ => view! { cx,
             <div class="flex min-h-screen">
                 <Sidebar />
-                <div class="flex flex-1 flex-col justify-between bg-primary-100 min-h-screen z-20">           
+                <div class="flex flex-1 flex-col justify-between bg-primary-100 min-h-screen z-20">
                     <div class="px-4 sm:px-6 lg:px-8">
                         {children(cx)}
                     </div>
@@ -48,7 +48,7 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
                 <TError />
                 <TInfo />
               </div>
-        }.into_view(cx)
-    }     
-    
+        }
+        .into_view(cx),
+    }
 }

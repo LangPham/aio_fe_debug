@@ -11,10 +11,10 @@ pub struct DefCol {
 impl DefCol {
     pub fn value(&self, row: serde_json::Value) -> String {
         // Get value
-        let value = get_value(&self.key, &row);        
+        let value = get_value(&self.key, &row);
         // Show value
         if value.is_null() {
-            return "".to_string()
+            return "".to_string();
         }
         match self.show.as_str() {
             "string" => value.as_str().unwrap().to_string(),
@@ -33,32 +33,35 @@ impl DefCol {
 }
 
 fn get_value(key: &str, value: &serde_json::Value) -> serde_json::Value {
-    let keys: Vec<_> = key.split(".").collect();    
+    let keys: Vec<_> = key.split(".").collect();
     if keys.len() == 1 {
-        let n: Result<usize,_> = FromStr::from_str(keys[0]);
+        let n: Result<usize, _> = FromStr::from_str(keys[0]);
         let is_array = value.is_array();
         match (n, is_array) {
-            (Ok(key), true) => {let new_value = &value[key];
-                return new_value.clone()},
-            (Ok(_),_) => {let new_value = &value[keys[0]];
-                    return new_value.clone()},
-            (Err(_),_) => {let new_value = &value[keys[0]];
-                return new_value.clone()},
+            (Ok(key), true) => {
+                let new_value = &value[key];
+                return new_value.clone();
+            }
+            (Ok(_), _) => {
+                let new_value = &value[keys[0]];
+                return new_value.clone();
+            }
+            (Err(_), _) => {
+                let new_value = &value[keys[0]];
+                return new_value.clone();
+            }
         }
-        
-       
     } else {
         let len = keys.len();
         dbg!(len);
         let key_array = &keys[1..len];
         dbg!(key_array);
         let key = key_array.join(".");
-        dbg!("Key:::",&key);
+        dbg!("Key:::", &key);
         let value = &value[keys[0]];
-        dbg!("Value:::",&value);
-       return get_value(key.as_str(), value)
+        dbg!("Value:::", &value);
+        return get_value(key.as_str(), value);
     }
-    
 }
 
 #[component]
@@ -91,18 +94,18 @@ pub fn TTable(
                             view!{cx, }.into_view(cx)
                         }
                     }
-                   
+
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-secondary-80 bg-white">
-                    {   
+                    {
                         data.iter().enumerate().map(|(index, row)| {
                             let action_vec = actions.to_vec();
                             view! { cx,
                                 <tr class="hover:bg-secondary-80 transition-all"
-                                    class=("bg-secondary-90", move || index+1 == row_current.get())                                    
+                                    class=("bg-secondary-90", move || index+1 == row_current.get())
                                     on:click= move |_| {set_row_current.set(index+1)}
-                                    // data-index={index+1}                                
+                                    // data-index={index+1}
                                 >
                                     { columns.to_vec().into_iter()
                                         .map(|column| view! { cx,
@@ -128,13 +131,13 @@ pub fn TTable(
                                                     }})
                                                     .collect::<Vec<_>>()
                                                 }
-        
+
                                             </td>
                                         }.into_view(cx)
                                     } else {
                                         view!{cx, }.into_view(cx)
                                     }}
-                                    
+
                                 </tr>
                             }
                         }).collect::<Vec<_>>()

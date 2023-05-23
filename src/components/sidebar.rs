@@ -28,7 +28,7 @@ pub fn Sidebar(cx: Scope) -> impl IntoView {
                         class=("w-14", move || menu_open.get() == false)
                     >
                         <div class="absolute right-0 h-14 w-14 flex justify-center items-center text-primary-100 py-2 px-2"
-                            class=("rotate-180", move || menu_open.get() == false)                            
+                            class=("rotate-180", move || menu_open.get() == false)
                             on:click=move |_| {
                                 set_menu_open.set( !menu_open.get());
                             }
@@ -45,7 +45,6 @@ pub fn Sidebar(cx: Scope) -> impl IntoView {
                                 <Icon class="mx-2" icon=BsIcon::BsHouseFill/>
                                 "Home"
                             </A>
-                            
 
                             <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all group flex items-center rounded-md px-2 py-2 text-base font-medium gap-4 aria-[current=page]:bg-primary-50"
                                 exact=true
@@ -78,12 +77,3 @@ pub fn Sidebar(cx: Scope) -> impl IntoView {
 
     }
 }
-// html! {
-//     <ul class="item-list">
-//         { items.iter().collect::<Html>() }
-//     </ul> {
-//     nav.into_iter().map(|name| {
-//         html!{<div key={name.0}>{ format!("Module {} has role {}!",name.0, name.1) }</div>}
-//     }).collect::<Html>()
-// }
-// };

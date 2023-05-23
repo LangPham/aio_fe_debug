@@ -1,24 +1,20 @@
-use leptos::*;
-use crate::{    
+use crate::{
     components::{HeaderModel, HeaderPage, Loading},
-    layout::*,    
+    layout::*,
 };
+use leptos::*;
 
 #[component]
 pub fn Home(cx: Scope) -> impl IntoView {
-    
-    let (header, _) = create_signal(
-        cx,
-        HeaderModel::new(cx, "Home", "Home page", "", ""),
-    );   
+    let (header, _) = create_signal(cx, HeaderModel::new(cx, "Home", "Home page", "", ""));
 
     view! { cx,
         <Layout>
             <HeaderPage header=header />
             <Transition
-                fallback=move || view! { cx, <Loading/> }                
+                fallback=move || view! { cx, <Loading/> }
             >
-            <h1>                                   
+            <h1>
                 "Welcome AIO App !!!"
             </h1>
             <p>
@@ -28,7 +24,7 @@ pub fn Home(cx: Scope) -> impl IntoView {
             <p>
                 "To use old interface click " <a href="/admin" rel="external" class="text-primary-40">"HERE"</a>
             </p>
-           
+
             </Transition>
         </Layout>
     }

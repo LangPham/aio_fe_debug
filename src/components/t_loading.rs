@@ -7,5 +7,4 @@ pub fn Loading(cx: Scope) -> impl IntoView {
             <div class="absolute  bg-error-40 h-full w-16 -my-2 animate-loadbar"></div>
         </div>
     }
-            
 }

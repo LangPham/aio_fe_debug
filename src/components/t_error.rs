@@ -1,5 +1,4 @@
 use leptos::*;
-
 use crate::app::GlobalState;
 
 #[component]
@@ -13,7 +12,6 @@ pub fn TError(cx: Scope) -> impl IntoView {
             state.t_error = value;
         },
     );
-
 
     view! { cx,
       <Show

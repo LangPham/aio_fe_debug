@@ -25,8 +25,7 @@ impl HeaderModel {
 }
 
 #[component]
-pub fn HeaderPage(cx: Scope, header: ReadSignal<HeaderModel>) -> impl IntoView {
-    // log::debug!("{:#?}",action);
+pub fn HeaderPage(cx: Scope, header: ReadSignal<HeaderModel>) -> impl IntoView {    
     view! { cx,
         <div class="sm:flex sm:items-center pt-4 pb-8">
             <div  class="sm:flex-auto">
@@ -49,7 +48,6 @@ pub fn HeaderPage(cx: Scope, header: ReadSignal<HeaderModel>) -> impl IntoView {
                         view! {cx, }.into_view(cx)
                     }
                 }
-                
             </div>
         </div>
     }

@@ -1,11 +1,10 @@
 use leptos::*;
 
 #[component]
-pub fn TButton(cx: Scope, 
-    #[prop(default = "Submit".to_string())]
-    label: String,
-    #[prop(default = "submit".to_string())]
-    ttype: String
+pub fn TButton(
+    cx: Scope,
+    #[prop(default = "Submit".to_string())] label: String,
+    #[prop(default = "submit".to_string())] ttype: String,
 ) -> impl IntoView {
     view! {cx,
         <button

@@ -3,7 +3,6 @@ pub(crate) mod components;
 pub(crate) mod layout;
 pub(crate) mod models;
 pub(crate) mod pages;
-
 use app::*;
 
 fn main() {

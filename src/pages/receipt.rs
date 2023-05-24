@@ -79,9 +79,11 @@ pub fn PageReceipt(cx: Scope) -> impl IntoView {
                         });
 
                         view! {cx,
-                            <Filter setter_branch=set_branch_current setter_ref=set_ref_current branch_current=branch_current ref_current=ref_current/>
-                            <Pagination page=page.clone() setter=set_page_current loaded=true/>
-                            <TTable data=list_data.to_vec() columns=def_column actions=vec![(read, "View".to_owned())] />
+                            <div>
+                                <Filter setter_branch=set_branch_current setter_ref=set_ref_current branch_current=branch_current ref_current=ref_current/>
+                                <Pagination page=page.clone() setter=set_page_current loaded=true/>
+                                <TTable data=list_data.to_vec() columns=def_column actions=vec![(read, "View".to_owned())] />
+                            </div>
                         }
                     }
                 )}
@@ -113,25 +115,19 @@ pub fn Filter(
         setter_ref.set("".to_string());
     };
     view! {cx,
-        <Transition
-            fallback=move || view! { cx, <Loading/> }
+        <form on:submit=on_submit
+            on:reset=on_reset
+            class="border p-2 my-4 rounded-md"
         >
-            <form on:submit=on_submit
-                on:reset=on_reset
-                class="border p-2 my-4 rounded-md"
-            >
-                <div class="flex gap-4">
-                    <TInput id="ref_id".to_string()  label="RefId".to_string() node_ref=input_ref_id value=ref_current.get_untracked()/>
-                    <TInput id="branch_code".to_string()  label="Branch code".to_string() node_ref=input_branch_code value=branch_current.get_untracked()/>
-                </div>
-                <div class="flex gap-4 justify-center">
-                    <TButton label="Filter".to_string() />
-                    <TButton label="Clear".to_string() ttype="reset".to_string()/>
-                </div>
-
-            </form>
-        </Transition>
-
+            <div class="flex gap-4">
+                <TInput id="ref_id".to_string()  label="RefId".to_string() node_ref=input_ref_id value=ref_current.get_untracked()/>
+                <TInput id="branch_code".to_string()  label="Branch code".to_string() node_ref=input_branch_code value=branch_current.get_untracked()/>
+            </div>
+            <div class="flex gap-4 justify-center">
+                <TButton label="Filter".to_string() />
+                <TButton label="Clear".to_string() ttype="reset".to_string()/>
+            </div>
+        </form>
     }
 }
 
@@ -150,9 +146,6 @@ pub fn Pagination(
     let page_p = if page == 1 { 1 } else { page - 1 };
     set_loading.set(!loaded);
     view! {cx,
-    <Transition
-            fallback=move || view! { cx, <Loading/> }
-        >
         <div class="flex justify-between bg-secondary-80 py-2 relative animate1-pulse">
             {
                 if loading.get() {
@@ -191,7 +184,6 @@ pub fn Pagination(
                 "Next"
                 </A>
             </div>
-        </div>
-    </Transition>
+        </div>    
     }
 }

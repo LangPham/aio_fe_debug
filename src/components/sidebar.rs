@@ -48,6 +48,13 @@ pub fn Sidebar(cx: Scope) -> impl IntoView {
 
                             <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all group flex items-center rounded-md px-2 py-2 text-base font-medium gap-4 aria-[current=page]:bg-primary-50"
                                 exact=true
+                                href="/user_check" >
+                                <Icon class="mx-2" icon=BsIcon::BsPeopleFill/>
+                                "User Check"
+                            </A>
+
+                            <A  class="text-primary-100 bg-primary-40 hover:bg-primary-50 transition-all group flex items-center rounded-md px-2 py-2 text-base font-medium gap-4 aria-[current=page]:bg-primary-50"
+                                exact=true
                                 href="/customer" >
                                 <Icon class="mx-2" icon=BsIcon::BsPeopleFill/>
                                 "Customer"

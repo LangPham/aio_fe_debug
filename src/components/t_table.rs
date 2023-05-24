@@ -87,7 +87,7 @@ pub fn TTable(
                         if actions.len() >0 {
                             view!{cx,
                                 <th scope="col" class="p-4 text-right font-semibold text-gray-900">
-                                    <span class="sr-only1">{"Action"}</span>
+                                    <span>{"Action"}</span>
                                 </th>
                             }.into_view(cx)
                         } else {
@@ -104,8 +104,7 @@ pub fn TTable(
                             view! { cx,
                                 <tr class="hover:bg-secondary-80 transition-all"
                                     class=("bg-secondary-90", move || index+1 == row_current.get())
-                                    on:click= move |_| {set_row_current.set(index+1)}
-                                    // data-index={index+1}
+                                    on:click= move |_| {set_row_current.set(index+1)}                                    
                                 >
                                     { columns.to_vec().into_iter()
                                         .map(|column| view! { cx,

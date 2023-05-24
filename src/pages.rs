@@ -4,6 +4,10 @@ pub use self::home::*;
 pub mod user;
 pub use self::user::*;
 
+
+pub mod user_check;
+pub use self::user_check::*;
+
 pub mod customer;
 pub use self::customer::*;
 

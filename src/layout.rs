@@ -32,7 +32,7 @@ pub fn Layout(cx: Scope, children: Children) -> impl IntoView {
     );
     match user.get().id {
         // Todo: change to 0
-        0 => view! {cx,
+        -1 => view! {cx,
             <Redirect path="/login"/>
         }
         .into_view(cx),

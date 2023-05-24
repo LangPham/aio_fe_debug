@@ -65,6 +65,7 @@ fn TRouter(cx: Scope) -> impl IntoView {
           <Routes>
               <Route path="/" view=|cx| view! { cx, <Home/> }/>
               <Route path="/user" view=|cx| view! { cx,  <ListUser/>}/>
+              <Route path="/user_check" view=|cx| view! { cx,  <ListUserCheck/>}/>
               <Route path="/user/new" view=|cx| view! { cx,  <NewUser/>}/>
               <Route path="/user/:id/edit" view=|cx| view! { cx,  <EditUser/>}/>
               <Route path="/login" view=|cx| view! { cx,  <Login/>}/>

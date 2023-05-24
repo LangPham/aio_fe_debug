@@ -31,7 +31,7 @@ pub fn ListUserCheck(cx: Scope) -> impl IntoView {
 
     let (header, _) = create_signal(
         cx,
-        HeaderModel::new(cx, "User", "List all user", "New", "/user/new"),
+        HeaderModel::new(cx, "Post with comment", "For debug", "", ""),
     );
 
     view! { cx,
@@ -43,18 +43,15 @@ pub fn ListUserCheck(cx: Scope) -> impl IntoView {
                 {move || async_data.read(cx).map(
                     |data| {
                         let list_data = data.as_array().unwrap();
-
                         let def_column = [
                             DefCol::new("ID", "id", "number"),
                             DefCol::new("Email", "email", "string"),
                             DefCol::new("Name", "name", "string"),
                             DefCol::new("Body", "body", "string"),                            
-                        ].to_vec();
-                        // view! {cx, <TTable data=data columns=def_column actions=vec![(edit, "Edit".to_owned()), (toggle_active, "Status".to_owned()), (delete, "Delete".to_owned())] /> }
+                        ].to_vec();                        
                         view! {cx,
                             <div>
-                                <Filter setter_post=set_post_current post_current=post_current />
-                                // <Pagination page=page.clone() setter=set_page_current loaded=true/>
+                                <Filter setter_post=set_post_current post_current=post_current />                                
                                 <TTable data=list_data.to_vec() columns=def_column actions=vec![] />
                             </div>
                         }

@@ -1,3 +1,5 @@
-# RUN
-trunk serve
-trunk serve --proxy-backend=http://127.0.0.1:4000/api/ 
+1. Gen css with tailwind
+`cd assets && yarn tailwind`
+
+2. Run dev
+`trunk serve`
